@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import ToDoHeader from "./components/ToDoHeader";
+import ToDoItem from "./components/ToDoItem";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -29,11 +30,8 @@ const App = () => {
       />
       <button onClick={addTask}>Add</button>
       <ul>
-        {tasks.map((task, index) => (
-          <li key={task.id}>
-            {task.text}
-            <button onClick={() => deleteTask(task.id)}>Delete task</button>
-          </li>
+        {tasks.map((task) => (
+          <ToDoItem key={task.id} task={task} onDelete={deleteTask} />
         ))}
       </ul>
     </div>
