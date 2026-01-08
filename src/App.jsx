@@ -19,7 +19,7 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <ToDoHeader title="My To-Do List" />
 
       <input
