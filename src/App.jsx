@@ -7,11 +7,16 @@ const App = () => {
   const [input, setInput] = useState([""]);
 
   const addTask = () => {
-    if(!(input.trim() == null)) {
-      setTasks([...tasks, input]);
+    if (!(input.trim() == null)) {
+      setTasks([...tasks, { id: Date.now(), text: input }]);
       setInput("");
     }
-  }
+  };
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   return (
     <div className="App">
       <ToDoHeader title="My To-Do List" />
@@ -25,7 +30,10 @@ const App = () => {
       <button onClick={addTask}>Add</button>
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
+          <li key={task.id}>
+            {task.text}
+            <button onClick={() => deleteTask(task.id)}>Delete task</button>
+          </li>
         ))}
       </ul>
     </div>
