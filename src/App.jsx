@@ -5,13 +5,12 @@ import ToDoItem from "./components/ToDoItem";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
-  const [input, setInput] = useState([""]);
+  const [input, setInput] = useState("");
 
   const addTask = () => {
-    if (!(input.trim() == null)) {
-      setTasks([...tasks, { id: Date.now(), text: input }]);
-      setInput("");
-    }
+    if (!input.trim()) return;
+    setTasks([...tasks, { id: Date.now(), text: input }]);
+    setInput("");
   };
 
   const deleteTask = (id) => {
@@ -24,6 +23,10 @@ const App = () => {
       setTasks(storedTasks);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <div className="app">
