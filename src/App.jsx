@@ -4,7 +4,10 @@ import ToDoHeader from "./components/ToDoHeader";
 import ToDoItem from "./components/ToDoItem";
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+    return storedTasks || [];
+  });
   const [input, setInput] = useState("");
 
   const addTask = () => {
@@ -17,12 +20,12 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks"));
-    if (storedTasks) {
-      setTasks(storedTasks);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+  //   if (storedTasks) {
+  //     setTasks(storedTasks);
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
