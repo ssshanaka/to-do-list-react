@@ -37,3 +37,18 @@
 .todo-item button:active {
   transform: scale(1);
 }
+
+.todo-item.completed span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-text.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-text.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

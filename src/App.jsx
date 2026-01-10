@@ -13,8 +13,16 @@ const App = () => {
 
   const addTask = () => {
     if (!input.trim()) return;
-    setTasks([...tasks, { id: Date.now(), text: input }]);
+    setTasks([...tasks, { id: Date.now(), text: input, completed: false }]);
     setInput("");
+  };
+
+  const makeCompleted = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
 
   const deleteTask = (id) => {
@@ -55,6 +63,7 @@ const App = () => {
           <ToDoItem
             key={task.id}
             index={tasks.findIndex((t) => t.id === task.id)}
+            makeCompleted={makeCompleted}
             task={task}
             onDelete={deleteTask}
             moveUp={moveUp}

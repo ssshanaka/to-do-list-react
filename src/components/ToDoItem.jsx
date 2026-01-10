@@ -1,9 +1,24 @@
 import "./TodoItem.css";
 
-const ToDoItem = ({ task, index, onDelete, moveUp, moveDown }) => {
+const ToDoItem = ({
+  task,
+  index,
+  makeCompleted,
+  onDelete,
+  moveUp,
+  moveDown,
+}) => {
   return (
     <li className="todo-item">
-      <span className="todo-text">{task.text}</span>
+      <button
+        className="task-state-button"
+        onClick={() => makeCompleted(task.id)}
+      >
+        {task.completed ? "☑️" : "⬜️"}
+      </button>
+      <span className={`todo-text ${task.completed ? "completed" : ""}`}>
+        {task.text}
+      </span>
       <button className="delete-button" onClick={() => onDelete(task.id)}>
         ❌
       </button>
