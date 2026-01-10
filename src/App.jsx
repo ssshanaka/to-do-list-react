@@ -8,6 +8,7 @@ const App = () => {
     const storedTasks = JSON.parse(localStorage.getItem("tasks"));
     return storedTasks || [];
   });
+
   const [input, setInput] = useState("");
 
   const addTask = () => {
@@ -20,12 +21,19 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  // useEffect(() => {
-  //   const storedTasks = JSON.parse(localStorage.getItem("tasks"));
-  //   if (storedTasks) {
-  //     setTasks(storedTasks);
-  //   }
-  // }, []);
+  const moveUp = (index) => {
+    if (index > 0) {
+      [tasks[index], tasks[index - 1]] = [tasks[index - 1], tasks[index]];
+      setTasks([...tasks]);
+    }
+  };
+
+  const moveDown = (index) => {
+    if (index < tasks.length - 1) {
+      [tasks[index], tasks[index + 1]] = [tasks[index + 1], tasks[index]];
+      setTasks([...tasks]);
+    }
+  };
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -44,7 +52,14 @@ const App = () => {
       <button onClick={addTask}>Add</button>
       <ul>
         {tasks.map((task) => (
-          <ToDoItem key={task.id} task={task} onDelete={deleteTask} />
+          <ToDoItem
+            key={task.id}
+            index={tasks.findIndex((t) => t.id === task.id)}
+            task={task}
+            onDelete={deleteTask}
+            moveUp={moveUp}
+            moveDown={moveDown}
+          />
         ))}
       </ul>
     </div>
